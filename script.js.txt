@@ -1,0 +1,33 @@
+let energyData = {
+    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    datasets: [{
+        label: 'Energy Usage (kWh)',
+        data: [0, 0, 0, 0, 0, 0, 0],
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+    }]
+};
+
+let ctx = document.getElementById('energyChart').getContext('2d');
+let energyChart = new Chart(ctx, {
+    type: 'bar',
+    data: energyData,
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+function addEnergyData() {
+    let day = document.getElementById('day').value;
+    let energy = document.getElementById('energy').value;
+
+    let dayIndex = energyData.labels.indexOf(day);
+    energyData.datasets[0].data[dayIndex] = parseFloat(energy);
+    energyChart.update();
+}
+
